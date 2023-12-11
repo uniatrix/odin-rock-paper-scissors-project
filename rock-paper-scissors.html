@@ -9,13 +9,17 @@
 
 <body>
 
-  <p id="result"></p>
+  <p id="welcome" style="color: red;">Rock-Paper-Scissors best of 5!</p>
+  <p id="result">Round: </p>
   <p id="score">Player: 0 | Computer: 0</p>
+  <p id="matchWin"></p>
 
   <script>
     const choices = ['rock', 'paper', 'scissors'];
     let playerScore = 0;
     let computerScore = 0;
+    let ties = 0;
+    let round = 0;
 
     function computerChoice() {
       return choices[Math.floor(Math.random() * 3)];
@@ -25,7 +29,7 @@
       const compSelection = computerChoice();
       const result = getResult(playerSelection, compSelection);
       updateScore(result);
-      updateResultText(playerSelection, compSelection, result);
+      updateResultText(round, playerSelection, compSelection, result);
       checkGameEnd();
     }
 
@@ -45,19 +49,27 @@
     function updateScore(result) {
       if (result === 'You win!') {
         playerScore++;
+        round++;
       } else if (result === 'You lose!') {
         computerScore++;
+        round++;
+      } else if (result === 'It\'s a tie!') {
+        round++;
+        ties++;
       }
-      document.getElementById('score').innerText = `Player: ${playerScore} | Computer: ${computerScore}`;
+      document.getElementById('score').innerText = `Player: ${playerScore} | Computer: ${computerScore} | Ties: ${ties}`;
     }
 
-    function updateResultText(player, computer, result) {
-      document.getElementById('result').innerText = `Player: ${player} | Computer: ${computer} | ${result}`;
+    function updateResultText(round, player, computer, result) {
+      document.getElementById('result').innerText = `Round: ${round} | Player: ${player} | Computer: ${computer} | ${result}`;
     }
 
     function checkGameEnd() {
-      if (playerScore === 3 || computerScore === 3) {
-        alert(`Game Over! ${playerScore === 3 ? 'You' : 'Computer'} won the best-of-five series.`);
+      if (round === 5) {
+        // alert(`Game Over! ${playerScore > computerScore ? 'You' : 'Computer'} won the best-of-five series.
+        // ${playerScore === computerScore ? 'The game ended up in a tie!' : ''}`);
+        document.getElementById('matchWin').innerText = `Game Over! ${playerScore > computerScore ? 'You' : 'Computer'} won the best-of-five series.
+        ${playerScore === computerScore ? 'The game ended up in a tie!' : ''}`;
         resetGame();
       }
     }
@@ -65,13 +77,19 @@
     function resetGame() {
       playerScore = 0;
       computerScore = 0;
-      document.getElementById('score').innerText = 'Player: 0 | Computer: 0';
+      round = 0;
+      ties = 0;
+      // document.getElementById('score').innerText = 'Player: 0 | Computer: 0';
+      // document.getElementById('result').innerText = 'Round:';
     }
   </script>
 
   <button onclick="play('rock')">Rock</button>
   <button onclick="play('paper')">Paper</button>
   <button onclick="play('scissors')">Scissors</button>
+  <br>
+  <button onclick="resetGame()" style="margin-top: 10px;">Reset Game</button>
+
 
 </body>
 
