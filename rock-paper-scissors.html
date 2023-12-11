@@ -79,8 +79,15 @@
       computerScore = 0;
       round = 0;
       ties = 0;
-      // document.getElementById('score').innerText = 'Player: 0 | Computer: 0';
-      // document.getElementById('result').innerText = 'Round:';
+    }
+
+    function resetWholeGame() {
+      playerScore = 0;
+      computerScore = 0;
+      round = 0;
+      ties = 0;
+      document.getElementById('score').innerText = 'Player: 0 | Computer: 0';
+      document.getElementById('result').innerText = 'Round:';
     }
   </script>
 
@@ -88,7 +95,7 @@
   <button onclick="play('paper')">Paper</button>
   <button onclick="play('scissors')">Scissors</button>
   <br>
-  <button onclick="resetGame()" style="margin-top: 10px;">Reset Game</button>
+  <button onclick="resetWholeGame()" style="margin-top: 10px;">Reset Game</button>
 
 
 </body>
