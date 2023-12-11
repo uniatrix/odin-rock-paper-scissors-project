@@ -68,11 +68,12 @@
     }
 
     function checkGameEnd() {
-      if (round === 5) {
-        // alert(`Game Over! ${playerScore > computerScore ? 'You' : 'Computer'} won the best-of-five series.
-        // ${playerScore === computerScore ? 'The game ended up in a tie!' : ''}`);
-        document.getElementById('matchWin').innerText = `Game Over! ${playerScore > computerScore ? 'You' : 'Computer'} won the best-of-five series.
-        ${playerScore === computerScore ? 'The game ended up in a tie!' : ''}`;
+      const resultText = playerScore > computerScore ? 'You' : playerScore < computerScore ? 'Computer' : '';
+      const tieText = playerScore === computerScore && round === 5 ? 'The game ended up in a tie!' : '';
+
+      if (round === 5 || tieText) {
+        const gameResult = tieText || `${resultText} won the best-of-five series.`;
+        document.getElementById('matchWin').innerText = gameResult;
         resetGame();
       }
     }
