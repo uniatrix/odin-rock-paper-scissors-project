@@ -31,6 +31,9 @@
       updateScore(result);
       updateResultText(round, playerSelection, compSelection, result);
       checkGameEnd();
+      if (round === 1) {
+        document.getElementById('matchWin').innerText = '';
+      }
     }
 
     function getResult(player, computer) {
